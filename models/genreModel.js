@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         gen_name: {
             type: DataTypes.STRING(50),
+            unique: true,
             allowNull: false
         }, 
         gen_image:{

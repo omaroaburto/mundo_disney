@@ -1,6 +1,7 @@
 const db = require('../models/');
 const Movies =  db.movies;
 const GenresMovies = db.genres_movies;
+const Genres = db.genres;
 
 const addMovies = async (req,res)=>{
    try {
@@ -22,8 +23,8 @@ const addMovies = async (req,res)=>{
         
         for(let aux of genreMovie){
                 genre_movie.push({
-                    mdGenreGenId: aux,
-                    mdMovieMovId: movie.mov_id
+                    gen_id: aux,
+                    mov_id: movie.mov_id
                 })
         }   
         
@@ -61,7 +62,23 @@ const findAllMovies = async (req, res) =>{
                 attributes: ['mov_id', 'mov_name', 'mov_image', 'mov_date']
             });
         }else if(req.query.genre){ 
-
+            /*const genre = await Genres.findAll({
+                where: { gen_name: req.query.genre, gen_active: true },
+                attributes: ['gen_id', 'gen_name', 'gen_image']
+            }); 
+           if(genre.length === 0){
+                res.status(400).json({ 
+                    msg: "invalid genre"
+                });
+            } */
+            console.log(Movies)
+            movie =  await GenresMovies.findAndCountAll({ 
+                include: [{
+                    model: Movies,
+                  }]
+            });  
+             
+            //const results  = await GenresMovies.findAndCountAll() ;             
         }else if(req.query.order){
             if(req.query.order=='DESC' || req.query.order=='ASC'){
                 movie = await Movies.findAndCountAll({
@@ -87,8 +104,9 @@ const findAllMovies = async (req, res) =>{
             movie
         });
     } catch (error) {
+        console.log(error)
         res.status(500).json({ 
-            msg:'database error'
+            msg:'database error' 
         });
     }
 }

@@ -34,18 +34,15 @@ db.movies = require('./movieModel.js')(sequelize, DataTypes);
 db.characters = require('./characterModel.js')(sequelize, DataTypes); 
 db.genres_movies = require('./genre_movieModel.js')(sequelize, DataTypes);
 db.movies_characters = require('./movie_characterModel.js')(sequelize, DataTypes);   
-/*
-const Genre_Movie = sequelize.define('Genre_Movie', {}, { timestamps: false });
-db.genres.belongsToMany(db.movies, { through: Genre_Movie });
-db.movies.belongsToMany(db.genres, { through: Genre_Movie });
-*/
+ 
 //relación m x n
-db.genres.belongsToMany(db.movies, { through: db.genres_movies });
-db.movies.belongsToMany(db.genres, { through: db.genres_movies });
+db.genres.belongsToMany(db.movies, { through: db.genres_movies, foreignKey:  'gen_id' });
+db.movies.belongsToMany(db.genres, { through: db.genres_movies, foreignKey:  'mov_id' });
 
+ 
 
-db.movies.belongsToMany(db.characters, { through: db.movies_characters });
-db.characters.belongsToMany(db.movies, { through: db.movies_characters });
+db.movies.belongsToMany(db.characters, { through: db.movies_characters, foreignKey:  'mov_id' });
+db.characters.belongsToMany(db.movies, { through: db.movies_characters, foreignKey:  'cha_id' });
 
 db.sequelize.sync({ force: false })
 .then(() => {
