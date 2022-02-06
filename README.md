@@ -18,6 +18,13 @@
     - __archivos Model:__ son los modelos del sistema, por ejemplo: movieModel.js
  
  - __controllers__
+    - __genreController:__ Contiene los controladores de los géneros de las películas
+        - __addGenre:__ Función para crear un género
+        - __updateGenre:__ Función para actualizar un género 
+        - __disableGenre:__ Función para desactivar un género por su id
+        - __findAllGenre:__ Función para listar los géneros 
+        - __findGenre:__ Función para encontrar un género por su id
+        - __enableGenre:__ Función para activar un género
     - __movieController:__ Contiene los controladores de las películas 
         - __addMovies:__ Función para crear una película
         - __updateMovies:__ Función para actualizar una película  
@@ -25,3 +32,10 @@
         - __findAllMovies:__ Función para listar las películas por su género, por fecha ascendente o descendente, por nombre 
         - __findIdMovies:__ Función para encontrar una película por su id
         - __enableMovies:__ Función para activar una película
+    - __characterController:__ Contiene los controladores de los personajes
+        - __addCharacter:__ Función para crear un personaje
+        - __updateCharacter:__ Función para actualizar un personaje  
+        - __disableCharacter:__ Función para desactivar un personaje por su id
+        - __findCharacter:__ Función para listar los personajes por el id de una película, por edad o nombre
+        - __findIdCharacter:__ Función para encontrar un personaje por su id
+        - __enableCharacter:__ Función para activar un personaje
