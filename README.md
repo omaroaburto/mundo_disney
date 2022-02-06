@@ -2,7 +2,7 @@
  
 - __.env:__ Este archivo contiene la configuración del sistema (el puerto, la api key de sendgrid, secret key para encriptar claves, configuración de base de datos)
 - __helpers__
-    - __sendEmail:__ Este archivo contiene las funciones para enviar y configurar el envio de correos (getMessage)
+    - __sendEmail:__ Este archivo contiene las funciones para enviar y configurar el envio de correos (getMessage). El correo necesita estar registrado al momento de crear la api key de sendgrid 
     - __db-validators:__ Contiene las validaciones del sistema (id, nombres, etc).
     - __create-jwt:__ Contiene las funciones que se encargan de generar los token.
 - __controllers__
