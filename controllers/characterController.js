@@ -118,6 +118,7 @@ const enableCharacter = async (req, res)=>{
 }
 
 const findMovies = async (req, res) =>{
+    
 }
 
 module.exports = {
