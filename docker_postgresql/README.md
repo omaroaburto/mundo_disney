@@ -1,3 +1,5 @@
+## Instalación de entorno docker para base de datos
+
 - abrir terminal en la raíz e ingresar el siguiente comando: __docker-compose pull__ 
 - Luego, ingresar el comando: __docker-compose build --no-cache__  
 - ingrese el comando __docker-compose up -d --force-recreate__  
