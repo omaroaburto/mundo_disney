@@ -1,4 +1,12 @@
-module.exports = (sequelize, DataTypes) => {
-    const Genre_Movie = sequelize.define("md_genre_movie", {})
-    return Genre_Movie;
+module.exports = (sequelize, DataTypes)  => { 
+    const {Model } = require('sequelize');
+    class GenreMovie extends Model {}
+    GenreMovie.init({
+
+    }, {
+        sequelize,
+        modelName:"md_genres_movie",
+        timestamps: false
+    })
+    return GenreMovie;
 }

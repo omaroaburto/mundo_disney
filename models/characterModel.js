@@ -1,5 +1,8 @@
+ 
 module.exports = (sequelize, DataTypes) => {
-    const Character = sequelize.define("md_character", {
+    const {Model} = require('sequelize');
+    class Character extends Model {}
+    Character.init({
         cha_id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -29,8 +32,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.BOOLEAN,
             defaultValue: true
         }   
-    })
-
-    return Character
-
+    },{
+        sequelize,
+        modelName: "md_character",
+        timestamps: false
+    });
+    return Character;
 }

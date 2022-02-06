@@ -1,5 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
-    const Genre = sequelize.define("md_genre", {
+    const {Model } = require('sequelize');
+    class Genre extends Model {}
+    Genre.init({
         gen_id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -18,6 +20,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.BOOLEAN,
             defaultValue: true
         }   
-    })
+    },{
+        sequelize,
+        modelName: 'md_genre',
+        timestamps: false
+    });
     return Genre;
 }

@@ -71,6 +71,30 @@ const disableGenre = async (req, res) =>{
     } 
 }
 
+const enableGenre = async (req, res) =>{
+    try {
+        const idGenre = req.params.id; 
+        const genre  = await Genre.findByPk(idGenre);
+        if(!genre){
+            res.status(400).json({
+                genre,
+                msg:"the genre id does not exist"
+            });
+        }
+        genre.gen_active =  true;
+        await genre.save().then(
+            res.status(200).json({ 
+                msg:"the genre has been enabled"
+            })
+        );
+
+    } catch (error) {
+        res.status(500).json({
+            msg: error
+        });
+    } 
+}
+
 //listar género
 const findAllGenre = async (req, res) =>{
     try {
@@ -117,5 +141,6 @@ module.exports = {
     updateGenre,
     disableGenre,
     findAllGenre,
-    findGenre
+    findGenre, 
+    enableGenre
 }

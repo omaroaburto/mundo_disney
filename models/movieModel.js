@@ -1,5 +1,8 @@
-module.exports = (sequelize, DataTypes) => {
-    const Movie = sequelize.define("md_movie", {
+ 
+module.exports = (sequelize, DataTypes)  => { 
+    const {Model } = require('sequelize');
+    class Movie extends Model {}
+    Movie.init({
         mov_id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -25,6 +28,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.BOOLEAN,
             defaultValue: true
         }   
-    })
+    },{
+        sequelize,
+        modelName: 'md_movie',
+        timestamps: false
+    });
     return Movie;
 }

@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const {check, param } = require('express-validator');   
 const { addGenre, findAllGenre, findGenre, disableGenre, updateGenre } = require('../controllers/genreController');
+const { existGenre } = require('../helpers/db-validators');
 const { validateGenre } = require('../middlewares/validateGenre');
 const { validateJWT } = require('../middlewares/validateJwt');
 
@@ -10,7 +11,8 @@ router.post('/',[
         .notEmpty()
         .withMessage('name is required.')
         .isLength({min: 1,max:50})       
-        .withMessage('name must be between 1 and 50 characters'),
+        .withMessage('name must be between 1 and 50 characters')
+        .custom(existGenre),
     validateGenre,
     validateJWT
 ], addGenre
@@ -23,14 +25,20 @@ router.put('/:id',[
         .notEmpty()
         .withMessage('name is required.')
         .isLength({min: 1,max:50})       
-        .withMessage('name must be between 1 and 50 characters'),
-    validateGenre,
+        .withMessage('name must be between 1 and 50 characters')
+        .custom(existGenre),
+    param('id')
+        .isNumeric()
+        .withMessage('invalid id'), 
     validateJWT
 ], updateGenre
 );
 
 //ruta para desactivar un género
 router.delete('/:id',[
+    param('id')
+        .isNumeric()
+        .withMessage('invalid id'),
     validateJWT
 ], disableGenre
 )
@@ -41,7 +49,10 @@ router.get('/',[
 ], findAllGenre );
 
 //ruta para ver un género
-router.get('/:id',[  
+router.get('/:id',[
+    param('id')
+        .isNumeric()
+        .withMessage('invalid id'),  
     validateJWT
 ], findGenre );
 
