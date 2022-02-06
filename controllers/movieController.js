@@ -140,8 +140,7 @@ const findAllMovies = async (req, res) =>{
                 where:{ mov_active: true, mov_name:req.query.name },
                 attributes: ['mov_id', 'mov_name', 'mov_image', 'mov_date']
             });
-        }else if(req.query.genre){ 
-            console.log(req.query.genre)
+        }else if(req.query.genre){  
             const genre = await Genres.findAll({
                 where: { gen_name: req.query.genre, gen_active: true },
                 attributes: ['gen_id']

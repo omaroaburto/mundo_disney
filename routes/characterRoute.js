@@ -1,10 +1,11 @@
 const router = require('express').Router();
 const { check, param } = require('express-validator'); 
-const { addCharacter, updateCharacter, disableCharacter } = require('../controllers/characterController');
-const { existIdCharacter, validateMoviesList } = require('../helpers/db-validators');
+const { addCharacter, updateCharacter, disableCharacter, findCharacter, enableCharacter, findIdCharacter } = require('../controllers/characterController');
+const { existIdCharacter, validateMoviesList, validateMovie } = require('../helpers/db-validators');
 const { validateCharacter } = require('../middlewares/validateCharacter');
 const { validateJWT } = require('../middlewares/validateJwt');
 
+//agregar personaje
 router.post('/',[
         check('name')
             .notEmpty()
@@ -33,6 +34,7 @@ router.post('/',[
     ], addCharacter
 );
 
+//actualizar personaje
 router.put('/:id',[
     param('id')
         .isNumeric()
@@ -63,6 +65,7 @@ router.put('/:id',[
 ], updateCharacter
 );
 
+//desactivar personaje
 router.delete('/:id',[
     param('id')
         .isNumeric()
@@ -71,5 +74,34 @@ router.delete('/:id',[
     validateJWT,
     validateCharacter
 ], disableCharacter);
+
+//activar personaje
+router.post('/:id',[
+    param('id')
+        .isNumeric()
+        .custom(existIdCharacter)
+        .withMessage('invalid id'),
+    validateJWT,
+    validateCharacter
+], enableCharacter);
+
+//listar personaje por distintos filtros
+router.get('/',[
+    query('movies')  
+        .custom(validateMovie),
+    validateJWT,
+    validateCharacter
+], findCharacter)
+
+router.get('/:id',[
+    param('id')
+        .isNumeric()
+        .custom(existIdCharacter)
+        .withMessage('invalid id'),
+    validateCharacter,
+    validateJWT
+], findIdCharacter);
+
+
 
 module.exports = router

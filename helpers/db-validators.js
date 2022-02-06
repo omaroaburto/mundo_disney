@@ -105,6 +105,23 @@ const validateGenre = async (genre) =>{
         return true;
     }
 }
+
+
+const validateMovie = async (movie) =>{
+     
+    if(typeof movie == 'undefined')
+        return true
+    const mov = await Movie.count({
+        where:{
+            mov_id: mov
+        }
+    })
+    if(gen !=1){
+        throw new Error(`the mov doesn't exist`);
+    }else{
+        return true;
+    }
+}
 module.exports = {
     existEmail,
     existIdCharacter, 
@@ -112,5 +129,6 @@ module.exports = {
     existGenre,
     validateGenreList,
     validateGenre,
-    validateMoviesList
+    validateMoviesList,
+    validateMovie
 }

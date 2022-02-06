@@ -1,3 +1,4 @@
+const req = require('express/lib/request');
 const db = require('../models'); 
 const Character = db.characters;
 const Op = db.Op;
@@ -117,13 +118,83 @@ const enableCharacter = async (req, res)=>{
     }
 }
 
-const findMovies = async (req, res) =>{
-    
+const findCharacter = async (req, res) =>{
+    try {
+        let characters = {};
+        if(req.query.name){
+            characters = await Character.findAndCountAll({
+                where:{ cha_active: true, cha_name:req.query.name },
+                attributes: ['cha_id', 'cha_name', 'cha_image', 'cha_date']
+            });
+        }else if(req.query.age){
+            characters = await Character.findAndCountAll({
+                where:{ cha_active: true, cha_age:req.query.age },
+                attributes: ['cha_id', 'cha_name', 'cha_image', 'cha_date']
+            });
+        }else if(req.query.idMovie){
+            const movie = await Movies.findByPk(req.query.idMovie);
+            if(!movie){
+                res.status(400).json({ 
+                    msg:"invalid id movie"
+                });
+            }
+
+            const idCharacters =  await CharactersMovies.findAll({ 
+                where:{
+                    gen_id: req.query.idMovie 
+                },
+                attributes: ['cha_id']
+            });
+            let aux = []
+            for (let index = 0; index <idCharacters.length; index++) {
+                aux.push(idCharacters[index].cha_id)
+                
+            }
+
+            characters = await Character.findAll({
+                where:{
+                    cha_id:{
+                        [Op.in]: aux
+                    },
+                    cha_active: true
+                }
+            })
+
+            res.status(200).json({
+                movie,
+                characters
+            });
+            
+        }else{
+            characters = await Character.findAndCountAll({
+                where:{ cha_active: true},
+                attributes: ['cha_id', 'cha_name', 'cha_image', 'cha_date']
+            });
+        }
+
+        res.status(200).json({ 
+            characters
+        });
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ 
+            msg:'database error' 
+        });
+    }
+}
+
+const findIdCharacter = async (req, res) => {
+    const character = await Character.findByPk(req.params.id)
+    res.status(200).json({ 
+        character
+    });
 }
 
 module.exports = {
     addCharacter,
     updateCharacter,
     disableCharacter,
-    enableCharacter
+    enableCharacter,
+    findCharacter,
+    findIdCharacter
 }
