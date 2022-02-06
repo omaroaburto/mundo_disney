@@ -1,6 +1,6 @@
 ## Instalación de entorno docker para base de datos
 
-- abrir terminal en la raíz del directorio __docker_postgresql__ e ingresar el siguiente comando: __docker-compose pull__ 
+- abrir terminal en la raíz del directorio __docker_postgresql__ e ingrese el siguiente comando: __docker-compose pull__ 
 - Luego, ingresar el comando: __docker-compose build --no-cache__  
 - ingrese el comando __docker-compose up -d --force-recreate__  
 - Liste los contenedores con el comando docker __ps -a__
