@@ -18,6 +18,10 @@
     - __archivos Model:__ son los modelos del sistema, por ejemplo: movieModel.js
  
  - __controllers__
+    - __userController:__ Contiene los controladores de los usuarios del sistema
+        - __addUser:__ Función para crear un usuario, envía un correo al usuario después de crear la cuenta
+    - __authController:__ Contiene los controladores para la autentificación de los usuarios
+        - __login:__ método para autentificar al usuario, si la autentificación es correcta retorna un token
     - __genreController:__ Contiene los controladores de los géneros de las películas
         - __addGenre:__ Función para crear un género
         - __updateGenre:__ Función para actualizar un género 
