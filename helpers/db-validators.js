@@ -58,7 +58,7 @@ const existIdCharacter = async (id)=>{
       return true;
     }
 }
-//valida el rango de 
+//valida el rango de calificación de las películas
 const validateRating = async (rating)=>{ 
     if (rating<1 || rating>5) {
         throw new Error(`the movies rating should be between 1 and 5`);   

@@ -15,10 +15,12 @@ const addUser = async(req,res)=>{
             user_password: password,
         };
         const user = await User.create(infoUser)
-          /*  .then(()=>{
+            .then(()=>{
                 const { sendEmail } = require('../helpers/sendEmail');
                 sendEmail(infoUser.user_email, infoUser.user_name)
-            });*/
+            },()=>{
+                console.log("there is an error sending email")
+            }); 
         
         res.status(200).json({
             user,
