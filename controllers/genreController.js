@@ -114,7 +114,7 @@ const findAllGenre = async (req, res) =>{
 }
 
 //ver genéro
-const findGenre = async (req, res) =>{
+const findIdGenre = async (req, res) =>{
     try {
         const idGenre = req.params.id; 
         const genre = await Genre.findByPk(idGenre); 
@@ -141,6 +141,6 @@ module.exports = {
     updateGenre,
     disableGenre,
     findAllGenre,
-    findGenre, 
+    findIdGenre, 
     enableGenre
 }

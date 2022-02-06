@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const {check, param } = require('express-validator');   
-const { addGenre, findAllGenre, findGenre, disableGenre, updateGenre } = require('../controllers/genreController');
+const { addGenre, findAllGenre,  disableGenre, updateGenre, findIdGenre } = require('../controllers/genreController');
 const { existGenre } = require('../helpers/db-validators');
 const { validateGenre } = require('../middlewares/validateGenre');
 const { validateJWT } = require('../middlewares/validateJwt');
@@ -54,6 +54,6 @@ router.get('/:id',[
         .isNumeric()
         .withMessage('invalid id'),  
     validateJWT
-], findGenre );
+], findIdGenre );
 
 module.exports = router;
