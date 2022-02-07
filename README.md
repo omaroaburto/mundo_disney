@@ -47,6 +47,6 @@
 [Documentación-postman](https://documenter.getpostman.com/view/12626700/UVeGsSL1#f17831c2-046b-4918-84e0-645e01c367c4).
 
 ------------------------------------------------------------------------------------------ 
-### Futura actualización
+### Tareas pendientes
 - Subida de imágenes con Api de de Cloudinary, por motivos de tiempo todavía no está implementada la subida de archivos
 - pruebas
