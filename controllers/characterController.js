@@ -129,12 +129,18 @@ const findCharacter = async (req, res) =>{
         if(req.query.name){
             characters = await Character.findAndCountAll({
                 where:{ cha_active: true, cha_name:req.query.name },
-                attributes: ['cha_id', 'cha_name', 'cha_image', 'cha_date']
+                attributes:  ['cha_id', 'cha_name', 'cha_image', 'cha_age', 'cha_story']
+            });
+            res.status(200).json({ 
+                characters
             });
         }else if(req.query.age){
             characters = await Character.findAndCountAll({
                 where:{ cha_active: true, cha_age:req.query.age },
-                attributes: ['cha_id', 'cha_name', 'cha_image', 'cha_date']
+                attributes: ['cha_id', 'cha_name', 'cha_image', 'cha_age', 'cha_story']
+            });
+            res.status(200).json({ 
+                characters
             });
         }else if(req.query.idMovie){
             const movie = await Movies.findByPk(req.query.idMovie);
@@ -146,7 +152,7 @@ const findCharacter = async (req, res) =>{
 
             const idCharacters =  await CharactersMovies.findAll({ 
                 where:{
-                    gen_id: req.query.idMovie 
+                    mov_id: req.query.idMovie 
                 },
                 attributes: ['cha_id']
             });
@@ -156,7 +162,7 @@ const findCharacter = async (req, res) =>{
                 
             }
 
-            characters = await Character.findAll({
+            const character = await Character.findAll({
                 where:{
                     cha_id:{
                         [Op.in]: aux
@@ -166,22 +172,22 @@ const findCharacter = async (req, res) =>{
             })
 
             res.status(200).json({
-                movie,
-                characters
+                character,
+                movie
             });
             
         }else{
             characters = await Character.findAndCountAll({
                 where:{ cha_active: true},
-                attributes: ['cha_id', 'cha_name', 'cha_image', 'cha_date']
+                attributes:  ['cha_id', 'cha_name', 'cha_image', 'cha_age', 'cha_story']
+            });
+            res.status(200).json({ 
+                characters
             });
         }
 
-        res.status(200).json({ 
-            characters
-        });
-    } catch (error) {
-        console.log(error)
+        
+    } catch (error) { 
         res.status(500).json({ 
             msg:'database error' 
         });
