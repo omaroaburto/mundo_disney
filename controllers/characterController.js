@@ -1,9 +1,10 @@
-const req = require('express/lib/request');
 const db = require('../models'); 
 const Character = db.characters;
 const Op = db.Op;
-const  CharactersMovies   = db.characterMovies;
+const CharactersMovies = db.movies_characters;
 const Movies =  db.movies;
+
+
 const addCharacter = async (req, res)=>{
 
     try {
@@ -27,23 +28,27 @@ const addCharacter = async (req, res)=>{
         let character_movie = []
         
         
+
         for(let aux of characterMovies){
                 character_movie.push({
-                    gen_id: aux,
-                    mov_id: character.cha_id
+                    mov_id: aux,
+                    cha_id: character.cha_id
                 })
-        } 
-
-        await CharactersMovies.bulkCreate(characterMovies, {returning: true})       
-            
+        }  
+        await CharactersMovies.bulkCreate(character_movie, { 
+            individualHooks: true ,
+            returning: true
+        });       
+           
         const movies = await Movies.findAll({
             where:{
                 mov_id:{
                     [Op.in]: characterMovies
-                }
+                },
+                mov_active: true
             }
         });
-
+       
         res.status(200).json({
             movies,
             character,
@@ -51,7 +56,7 @@ const addCharacter = async (req, res)=>{
         }); 
     } catch (error) {
         res.status(400).json({ 
-            msg: error
+            msg: "error"
         });
     }
 }

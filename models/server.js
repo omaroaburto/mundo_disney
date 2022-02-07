@@ -11,7 +11,7 @@ class Server{
         this.paths = {
             authPath:'/auth/login', 
             userPath: '/auth/register', 
-            characterPath: '/characters',
+            characterPath:'/characters',
             genrePath:'/genres',
             moviePath: '/movies'
         } 

@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { check, param } = require('express-validator'); 
+const { check, param, query } = require('express-validator'); 
 const { addCharacter, updateCharacter, disableCharacter, findCharacter, enableCharacter, findIdCharacter } = require('../controllers/characterController');
 const { existIdCharacter, validateMoviesList, validateMovie } = require('../helpers/db-validators');
 const { validateCharacter } = require('../middlewares/validateCharacter');
